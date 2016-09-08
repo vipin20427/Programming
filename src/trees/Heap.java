@@ -1,5 +1,14 @@
 package trees;
 
+import java.util.Scanner;
+
+/*
+ * 
+ * Build a Minimum heap
+ * insert : takes O(log n)
+ * minDelte : taken (log n)
+ * for n elements it takes O(n logn ) time to insert all elements. and remove as well.
+ */
 public class Heap {
 	private int[] heap_array;
 	private int number_of_nodes;
@@ -8,7 +17,7 @@ public class Heap {
 
 	public Heap(int number_of_nodes) {
 		this.number_of_nodes = number_of_nodes;
-		heap_array = new int[this.number_of_nodes];
+		heap_array = new int[this.number_of_nodes + 1];
 		size = 0;
 	}
 
@@ -64,6 +73,10 @@ public class Heap {
 
 		int value = heap_array[ROOT];
 
+		if (size == 0) {
+			System.out.println("No elements left to delete");
+			return Integer.MAX_VALUE;
+		}
 		heap_array[ROOT] = heap_array[size];
 		size--;
 
@@ -76,6 +89,28 @@ public class Heap {
 			index = position;
 		}
 		return value;
+	}
+
+	public static void main(String[] arg) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter the number of elements");
+		int number_of_nodes = scanner.nextInt();
+
+		Heap heap = new Heap(number_of_nodes);
+
+		System.out.println("enter the elements");
+		int index = 0;
+		int element;
+		while (index < number_of_nodes) {
+			element = scanner.nextInt();
+			heap.insert(element);
+			index++;
+		}
+
+		System.out.println("The minimum element is " + heap.minDelete());
+		
+		scanner.close();
+
 	}
 
 }
